@@ -1,0 +1,20 @@
+默认开启的某些应用需要至少一个数据表，所以，在使用他们之前需要在数据库中创建一些表。请执行以下命令：
+python manage.py migrate
+
+通过运行 makemigrations 命令，Django 会检测你对模型文件的修改（在这种情况下，你已经取得了新的），
+并且把修改的部分储存为一次 迁移。
+python manage.py makemigrations polls
+
+sqlmigrate 命令接收一个迁移的名称，然后返回对应的 SQL
+python manage.py sqlmigrate polls 0001
+
+现在，再次运行 migrate 命令，在数据库里创建新定义的模型的数据表。
+这个 migrate 命令选中所有还没有执行过的迁移（Django 通过在数据库中创建一个特殊的表
+django_migrations 来跟踪执行过哪些迁移）并应用在数据库上 - 也就是将你对模型的更改同步到数据库结构上。
+
+
+python manage.py shell
+
+创建一个能登录管理页面的用户。请运行下面的命令：
+python manage.py createsuperuser
+管理页面：http://127.0.0.1:8000/admin/"
