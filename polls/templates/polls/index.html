@@ -1,0 +1,18 @@
+{% if latest_question_list %}
+<ul>
+    {% for question in latest_question_list %}
+    <!--    <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>-->
+
+    <!--    去除模板中的硬编码 URL, 使用在polls.urls 中定义的名称， 如detail。
+    这样如果以后想更改这个url，只需在polls.urls 中修改即可-->
+    <!-- <li><a href="\{% url 'detail' question.id %\}">{{ question.question_text }}</a></li>-->
+
+    <!--    为 URL 名称添加命名空间。 在一个真实的 Django 项目中，可能会有五个，十个，二十个，甚至更多应用。
+Django 如何分辨重名的 URL 呢？举个例子，polls 应用有 detail 视图，可能另一个博客应用也有同名的视图。
+Django 如何知道 % url %标签到底对应哪一个应用的 URL 呢？-->
+    <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No polls are available.</p>
+{% endif %}
