@@ -123,3 +123,56 @@ USE_TZ = False #只改TIME_ZONE不足以修改前端或数据库存储的时间�
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#下面就是logging的配置
+LOGGING = {
+    'version': 1,  # 指明dictConnfig的版本，目前就只有一个版本
+    'disable_existing_loggers': False,  # 表示是否禁用所有的已经存在的日志配置
+    'formatters': {
+        'verbose': {  # 详细
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'standard': {  # 标准
+            'format': '[%(asctime)s] [%(levelname)s] %(message)s'
+        },
+    },
+    # handlers：用来定义具体处理日志的方式，可以定义多种，"default"就是默认方式，"console"就是打印到控制台方式。file是写入到文件的方式，注意使用的class不同
+    'handlers': { # 处理器，在这里定义了两个个处理器
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'   # 制定输出的格式，注意 在上面的formatters配置里面选择一个，否则会报错
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': './log/file.log',  #这是将普通日志写入到日志文件中的方法
+            'formatter': 'standard'
+        },
+        'default': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': './log/default.log',     #日志输出文件
+            'maxBytes': 1024*1024*5,                  #文件大小
+            'backupCount': 5,                         #备份份数
+            'formatter': 'standard',
+        },
+    },
+    'loggers': {  # log记录器，配置之后就会对应的输出日志
+        'django': {
+            'handlers': ['console', 'default'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['console', 'default'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+        'django.db.backends': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

@@ -1,3 +1,5 @@
+import logging
+
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template import loader
@@ -8,6 +10,7 @@ from django.views import generic
 from .models import Choice, Question
 # Create your views here.
 
+logger = logging.getLogger('django')
 
 # def index(request):
 #     # return HttpResponse("Hello, world. You're at the polls index.")
@@ -49,6 +52,9 @@ from .models import Choice, Question
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
+    logger.info("test info")
+    logger.warning("test warning")
+    logger.error("test error")
 
     def get_queryset(self):
         # """Return the last five published questions."""

@@ -1,3 +1,17 @@
+创建工程
+django-admin startproject mysite
+运行
+python manage.py runserver
+创建投票应用
+python manage.py startapp polls
+
+# Django 应用是“可插拔”的。你可以在多个项目中使用同一个应用。
+# 除此之外，你还可以发布自己的应用，因为它们并不会被绑定到当前安装的 Django 上。
+# 为了在我们的工程中包含这个应用，我们需要在配置类 INSTALLED_APPS 中添加设置。
+# 因为 PollsConfig 类写在文件 polls/apps.py 中，所以它的点式路径是 'polls.apps.PollsConfig'。
+# 在文件 mysite/settings.py 中 INSTALLED_APPS 子项添加点式路径。
+
+
 默认开启的某些应用需要至少一个数据表，所以，在使用他们之前需要在数据库中创建一些表。请执行以下命令：
 python manage.py migrate
 
@@ -17,7 +31,7 @@ python manage.py shell
 
 创建一个能登录管理页面的用户。请运行下面的命令：
 python manage.py createsuperuser
-管理页面：http://127.0.0.1:8000/admin/"
+管理页面：http://127.0.0.1:8000/admin/
 
 
 Django 中的视图的概念是「一类具有相同功能和模板的网页的集合」。比如，在一个博客应用中，你可能会创建如下几个视图：
